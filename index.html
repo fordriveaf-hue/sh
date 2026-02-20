@@ -1,11 +1,9 @@
-
 <!DOCTYPE html>
 <html lang="fa">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>آزمون ریاضی - استاد شمسایی</title>
-    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;500;700&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -15,113 +13,91 @@
         
         body {
             font-family: 'Tajawal', sans-serif;
-            background: linear-gradient(135deg, #f5f7fa 0%, #e4edf5 100%);
             min-height: 100vh;
             display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
+            flex-direction: column;
+            background: #f8f9ff;
             color: #2c3e50;
         }
         
         .container {
-            background: white;
-            border-radius: 20px;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
-            width: 100%;
-            max-width: 450px;
-            overflow: hidden;
-            position: relative;
-        }
-        
-        .header {
-            background: linear-gradient(120deg, #3498db, #1a56db);
-            color: white;
-            padding: 35px 25px;
-            text-align: center;
-            position: relative;
-        }
-        
-        .header h1 {
-            font-size: 1.8rem;
-            font-weight: 700;
-            margin-bottom: 10px;
-            letter-spacing: 0.5px;
-        }
-        
-        .header p {
-            font-size: 1.1rem;
-            opacity: 0.9;
-            margin-top: 5px;
-        }
-        
-        .details {
-            padding: 30px 25px;
-            background: #f8f9ff;
-            border-bottom: 1px solid #eaeaea;
-        }
-        
-        .detail-item {
-            margin: 15px 0;
-            padding: 12px 0;
-            border-bottom: 1px dashed #e0e6ff;
+            flex: 1;
             display: flex;
-            justify-content: space-between;
-        }
-        
-        .detail-item:last-child {
-            border-bottom: none;
-        }
-        
-        .detail-label {
-            font-weight: 500;
-            color: #2c3e50;
-        }
-        
-        .detail-value {
-            font-weight: 700;
-            color: #1a56db;
-        }
-        
-        .instructions {
-            padding: 25px 25px 15px;
-            background: white;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
             text-align: center;
-            border-bottom: 1px solid #eaeaea;
         }
         
-        .instructions p {
+        .message {
+            padding: 30px 20px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+            max-width: 450px;
+            margin-bottom: 20px;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        .message h2 {
             color: #e74c3c;
-            font-weight: 500;
-            margin: 10px 0;
-            font-size: 1.05rem;
+            margin-bottom: 15px;
+            font-size: 1.6rem;
+        }
+        
+        .message p {
+            color: #7f8c8d;
+            line-height: 1.6;
+            font-size: 1.1rem;
         }
         
         .start-btn {
-            display: block;
             background: linear-gradient(to right, #3498db, #1a56db);
             color: white;
-            text-decoration: none;
-            text-align: center;
-            padding: 18px 25px;
-            font-size: 1.2rem;
-            font-weight: 600;
-            border-radius: 12px;
-            margin: 25px 25px 15px;
-            transition: all 0.3s ease;
-            box-shadow: 0 6px 15px rgba(26, 86, 219, 0.35);
             border: none;
+            padding: 14px 25px;
+            font-size: 1.1rem;
+            border-radius: 10px;
             cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 15px;
+            font-weight: 600;
         }
         
         .start-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(26, 86, 219, 0.45);
+            transform: translateY(-2px);
             background: linear-gradient(to right, #2c80b9, #1548b3);
         }
         
+        .exam-container {
+            width: 100%;
+            max-width: 450px;
+            height: 100vh;
+            border: none;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+            overflow: hidden;
+            display: none;
+            position: relative;
+        }
+        
+        .timer-container {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: #e74c3c;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            z-index: 10;
+        }
+        
         .footer {
-            padding: 20px 25px;
+            padding: 20px;
             text-align: center;
             color: #7f8c8d;
             font-size: 0.9rem;
@@ -134,55 +110,125 @@
             color: #2c3e50;
         }
         
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
         @media (max-width: 480px) {
-            .header h1 {
-                font-size: 1.5rem;
+            .message {
+                padding: 25px 15px;
             }
             
-            .details {
-                padding: 25px 20px;
+            .message h2 {
+                font-size: 1.4rem;
+            }
+            
+            .message p {
+                font-size: 1.05rem;
             }
             
             .start-btn {
-                padding: 16px 20px;
-                font-size: 1.1rem;
+                padding: 12px 20px;
+                font-size: 1rem;
             }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="header">
-            <h1>آزمون ریاضی</h1>
-            <p>استاد شمسایی</p>
+        <div class="message" id="message">
+            <h2>آزمون ریاضی - استاد شمسایی</h2>
+            <p>آزمون در تاریخ جمعه، ۰۱ اسفند ۱۴۰۴ ساعت ۱۹:۰۰ آغاز می‌شود</p>
+            <p>لطفاً در زمان تعیین شده وارد شوید</p>
+            <button id="start-btn" class="start-btn">شروع آزمون</button>
         </div>
         
-        <div class="details">
-            <div class="detail-item">
-                <span class="detail-label">تاریخ آزمون:</span>
-                <span class="detail-value">جمعه، ۰۱ اسفند ۱۴۰۴</span>
-            </div>
-            <div class="detail-item">
-                <span class="detail-label">ساعت شروع:</span>
-                <span class="detail-value">۱۹:۰۰</span>
-            </div>
-            <div class="detail-item">
-                <span class="detail-label">مدت آزمون:</span>
-                <span class="detail-value">20 دقیقه</span>
-            </div>
+        <div class="exam-container" id="exam-container">
+            <div class="timer-container" id="timer">20:00</div>
+            <iframe src="https://app.epoll.ir/e/شمسایی/MTY5MDA1?Referral=iframe" 
+                    width="100%" 
+                    height="100%"
+                    frameborder="0"
+                    allow="camera; microphone; autoplay"></iframe>
         </div>
-        
-        <div class="instructions">
-            <p>این آزمون تنها یک بار قابل شرکت است</p>
-            <p>لطفاً قبل از شروع آزمون، محیط مناسب و اینترنت پایدار را فراهم کنید</p>
-        </div>
-        
-        <a href="http://exams.ir/exam.php?id=25470" class="start-btn">شروع آزمون</a>
         
         <div class="footer">
-            <p class="copyright">تمامی حقوق محفوظ است آرشا فاضل 2026</p>
-            <p>پلتفرم آزمون: ساخته شده توسط آرشام فاضل - AF-IR</p>
+            <p class="copyright">تمامی حقوق محفوظ است آرشام فاضل 2026</p>
+            
         </div>
     </div>
+
+    <script>
+        // تاریخ و زمان آزمون (به زمان UTC)
+        const examStart = new Date('2026-02-20T15:30:00Z'); // 19:00 ایران = 15:30 UTC
+        const examEnd = new Date('2026-02-20T16:10:00Z');   // 19:40 ایران = 16:10 UTC
+        const examDuration = 20 * 60; // 20 دقیقه به ثانیه
+        
+        // بررسی زمان فعلی
+        function checkExamTime() {
+            const now = new Date();
+            const examStarted = localStorage.getItem('examStarted');
+            
+            if (now >= examStart && now <= examEnd) {
+                if (examStarted) {
+                    // آزمون قبلاً شروع شده
+                    document.getElementById('message').style.display = 'none';
+                    document.getElementById('exam-container').style.display = 'block';
+                    startTimer();
+                } else {
+                    // آزمون در بازه زمانی است
+                    document.getElementById('message').style.display = 'block';
+                    document.getElementById('exam-container').style.display = 'none';
+                }
+            } else {
+                // خارج از بازه آزمون
+                document.getElementById('message').style.display = 'block';
+                document.getElementById('exam-container').style.display = 'none';
+                document.getElementById('message').innerHTML = `
+                    <h2>زمان آزمون تمام شد</h2>
+                    <p>آزمون در تاریخ جمعه، ۰۱ اسفند ۱۴۰۴ ساعت ۱۹:۰۰ تا ۱۹:۴۰ برگزار می‌شود</p>
+                    <p>لطفاً در زمان تعیین شده وارد شوید</p>
+                `;
+            }
+        }
+        
+        // شروع تایمر
+        function startTimer() {
+            let timeLeft = examDuration;
+            const timerElement = document.getElementById('timer');
+            
+            const timer = setInterval(() => {
+                timeLeft--;
+                const minutes = Math.floor(timeLeft / 60);
+                const seconds = timeLeft % 60;
+                
+                timerElement.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+                
+                if (timeLeft <= 0) {
+                    clearInterval(timer);
+                    document.getElementById('exam-container').style.display = 'none';
+                    document.getElementById('message').innerHTML = `
+                        <h2>زمان آزمون تمام شد</h2>
+                        <p>مدت زمان آزمون به پایان رسید</p>
+                        <p>لطفاً در زمان تعیین شده وارد شوید</p>
+                    `;
+                    document.getElementById('message').style.display = 'block';
+                }
+            }, 1000);
+        }
+        
+        // رویداد شروع آزمون
+        document.getElementById('start-btn').addEventListener('click', function() {
+            localStorage.setItem('examStarted', 'true');
+            checkExamTime();
+        });
+        
+        // اجرای بررسی زمان
+        checkExamTime();
+        
+        // بررسی مداوم (هر 10 ثانیه)
+        setInterval(checkExamTime, 10000);
+    </script>
 </body>
 </html>
