@@ -1,0 +1,188 @@
+
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>آزمون ریاضی - استاد شمسایی</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;500;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4edf5 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            color: #2c3e50;
+        }
+        
+        .container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+            width: 100%;
+            max-width: 450px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .header {
+            background: linear-gradient(120deg, #3498db, #1a56db);
+            color: white;
+            padding: 35px 25px;
+            text-align: center;
+            position: relative;
+        }
+        
+        .header h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            letter-spacing: 0.5px;
+        }
+        
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            margin-top: 5px;
+        }
+        
+        .details {
+            padding: 30px 25px;
+            background: #f8f9ff;
+            border-bottom: 1px solid #eaeaea;
+        }
+        
+        .detail-item {
+            margin: 15px 0;
+            padding: 12px 0;
+            border-bottom: 1px dashed #e0e6ff;
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .detail-item:last-child {
+            border-bottom: none;
+        }
+        
+        .detail-label {
+            font-weight: 500;
+            color: #2c3e50;
+        }
+        
+        .detail-value {
+            font-weight: 700;
+            color: #1a56db;
+        }
+        
+        .instructions {
+            padding: 25px 25px 15px;
+            background: white;
+            text-align: center;
+            border-bottom: 1px solid #eaeaea;
+        }
+        
+        .instructions p {
+            color: #e74c3c;
+            font-weight: 500;
+            margin: 10px 0;
+            font-size: 1.05rem;
+        }
+        
+        .start-btn {
+            display: block;
+            background: linear-gradient(to right, #3498db, #1a56db);
+            color: white;
+            text-decoration: none;
+            text-align: center;
+            padding: 18px 25px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            border-radius: 12px;
+            margin: 25px 25px 15px;
+            transition: all 0.3s ease;
+            box-shadow: 0 6px 15px rgba(26, 86, 219, 0.35);
+            border: none;
+            cursor: pointer;
+        }
+        
+        .start-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(26, 86, 219, 0.45);
+            background: linear-gradient(to right, #2c80b9, #1548b3);
+        }
+        
+        .footer {
+            padding: 20px 25px;
+            text-align: center;
+            color: #7f8c8d;
+            font-size: 0.9rem;
+            background: #f8f9ff;
+            border-top: 1px solid #eaeaea;
+        }
+        
+        .copyright {
+            font-weight: 500;
+            color: #2c3e50;
+        }
+        
+        @media (max-width: 480px) {
+            .header h1 {
+                font-size: 1.5rem;
+            }
+            
+            .details {
+                padding: 25px 20px;
+            }
+            
+            .start-btn {
+                padding: 16px 20px;
+                font-size: 1.1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>آزمون ریاضی</h1>
+            <p>استاد شمسایی</p>
+        </div>
+        
+        <div class="details">
+            <div class="detail-item">
+                <span class="detail-label">تاریخ آزمون:</span>
+                <span class="detail-value">جمعه، ۰۱ اسفند ۱۴۰۴</span>
+            </div>
+            <div class="detail-item">
+                <span class="detail-label">ساعت شروع:</span>
+                <span class="detail-value">۱۹:۰۰</span>
+            </div>
+            <div class="detail-item">
+                <span class="detail-label">مدت آزمون:</span>
+                <span class="detail-value">20 دقیقه</span>
+            </div>
+        </div>
+        
+        <div class="instructions">
+            <p>این آزمون تنها یک بار قابل شرکت است</p>
+            <p>لطفاً قبل از شروع آزمون، محیط مناسب و اینترنت پایدار را فراهم کنید</p>
+        </div>
+        
+        <a href="http://exams.ir/exam.php?id=25470" class="start-btn">شروع آزمون</a>
+        
+        <div class="footer">
+            <p class="copyright">تمامی حقوق محفوظ است آرشا فاضل 2026</p>
+            <p>پلتفرم آزمون: ساخته شده توسط آرشام فاضل - AF-IR</p>
+        </div>
+    </div>
+</body>
+</html>
