@@ -70,11 +70,6 @@
             background: linear-gradient(to right, #2c80b9, #1548b3);
         }
         
-        .start-btn:disabled {
-            background: #bdc3c7;
-            cursor: not-allowed;
-        }
-        
         .exam-container {
             width: 100%;
             max-width: 450px;
@@ -92,18 +87,13 @@
             position: absolute;
             top: 15px;
             right: 15px;
-            background: #2c3e50;
+            background: #e74c3c;
             color: white;
             padding: 8px 15px;
             border-radius: 20px;
             font-weight: 700;
             font-size: 1.1rem;
             z-index: 10;
-            transition: background 0.3s ease;
-        }
-        
-        .warning {
-            background: #e74c3c !important;
         }
         
         .footer {
@@ -149,8 +139,8 @@
     <div class="container">
         <div class="message" id="message">
             <h2>آزمون ریاضی - استاد شمسایی</h2>
-            <p>مدت زمان آزمون: 20 دقیقه</p>
-            <p>لطفاً برای شروع آزمون روی دکمه زیر کلیک کنید</p>
+            <p>آزمون در تاریخ جمعه، ۰۱ اسفند ۱۴۰۴ ساعت ۱۹:۰۰ آغاز می‌شود</p>
+            <p>لطفاً در زمان تعیین شده وارد شوید</p>
             <button id="start-btn" class="start-btn">شروع آزمون</button>
         </div>
         
@@ -164,66 +154,81 @@
         </div>
         
         <div class="footer">
-            <p class="copyright">تمامی حقوق محفوظ است آرشا فاضل 2026</p>
+            <p class="copyright">تمامی حقوق محفوظ است آرشام فاضل 2026</p>
+            
         </div>
     </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const startBtn = document.getElementById('start-btn');
-            const examContainer = document.getElementById('exam-container');
-            const message = document.getElementById('message');
-            const timerElement = document.getElementById('timer');
-            
-            // بررسی وضعیت آزمون
+        // تاریخ و زمان آزمون (به زمان UTC)
+        const examStart = new Date('2026-02-20T15:30:00Z'); // 19:00 ایران = 15:30 UTC
+        const examEnd = new Date('2026-02-20T16:10:00Z');   // 19:40 ایران = 16:10 UTC
+        const examDuration = 20 * 60; // 20 دقیقه به ثانیه
+        
+        // بررسی زمان فعلی
+        function checkExamTime() {
+            const now = new Date();
             const examStarted = localStorage.getItem('examStarted');
             
-            if (examStarted) {
-                // آزمون قبلاً شروع شده
-                message.style.display = 'none';
-                examContainer.style.display = 'block';
-                startTimer();
-                startBtn.disabled = true;
+            if (now >= examStart && now <= examEnd) {
+                if (examStarted) {
+                    // آزمون قبلاً شروع شده
+                    document.getElementById('message').style.display = 'none';
+                    document.getElementById('exam-container').style.display = 'block';
+                    startTimer();
+                } else {
+                    // آزمون در بازه زمانی است
+                    document.getElementById('message').style.display = 'block';
+                    document.getElementById('exam-container').style.display = 'none';
+                }
+            } else {
+                // خارج از بازه آزمون
+                document.getElementById('message').style.display = 'block';
+                document.getElementById('exam-container').style.display = 'none';
+                document.getElementById('message').innerHTML = `
+                    <h2>زمان آزمون تمام شد</h2>
+                    <p>آزمون در تاریخ جمعه، ۰۱ اسفند ۱۴۰۴ ساعت ۱۹:۰۰ تا ۱۹:۴۰ برگزار می‌شود</p>
+                    <p>لطفاً در زمان تعیین شده وارد شوید</p>
+                `;
             }
+        }
+        
+        // شروع تایمر
+        function startTimer() {
+            let timeLeft = examDuration;
+            const timerElement = document.getElementById('timer');
             
-            // شروع تایمر
-            function startTimer() {
-                let timeLeft = 20 * 60; // 20 دقیقه به ثانیه
-                const timer = setInterval(() => {
-                    timeLeft--;
-                    const minutes = Math.floor(timeLeft / 60);
-                    const seconds = timeLeft % 60;
-                    
-                    timerElement.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-                    
-                    // هشدار 1 دقیقه آخر
-                    if (timeLeft <= 60) {
-                        timerElement.classList.add('warning');
-                    }
-                    
-                    if (timeLeft <= 0) {
-                        clearInterval(timer);
-                        examContainer.style.display = 'none';
-                        message.innerHTML = `
-                            <h2>زمان آزمون تمام شد</h2>
-                            <p>مدت زمان آزمون به پایان رسید</p>
-                            <p>لطفاً در زمان تعیین شده وارد شوید</p>
-                        `;
-                        message.style.display = 'block';
-                        startBtn.disabled = true;
-                    }
-                }, 1000);
-            }
-            
-            // رویداد شروع آزمون
-            startBtn.addEventListener('click', function() {
-                localStorage.setItem('examStarted', 'true');
-                message.style.display = 'none';
-                examContainer.style.display = 'block';
-                startBtn.disabled = true;
-                startTimer();
-            });
+            const timer = setInterval(() => {
+                timeLeft--;
+                const minutes = Math.floor(timeLeft / 60);
+                const seconds = timeLeft % 60;
+                
+                timerElement.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+                
+                if (timeLeft <= 0) {
+                    clearInterval(timer);
+                    document.getElementById('exam-container').style.display = 'none';
+                    document.getElementById('message').innerHTML = `
+                        <h2>زمان آزمون تمام شد</h2>
+                        <p>مدت زمان آزمون به پایان رسید</p>
+                        <p>لطفاً در زمان تعیین شده وارد شوید</p>
+                    `;
+                    document.getElementById('message').style.display = 'block';
+                }
+            }, 1000);
+        }
+        
+        // رویداد شروع آزمون
+        document.getElementById('start-btn').addEventListener('click', function() {
+            localStorage.setItem('examStarted', 'true');
+            checkExamTime();
         });
+        
+        // اجرای بررسی زمان
+        checkExamTime();
+        
+        // بررسی مداوم (هر 10 ثانیه)
+        setInterval(checkExamTime, 10000);
     </script>
 </body>
 </html>
